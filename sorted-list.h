@@ -52,9 +52,9 @@ typedef void (*DestructFuncT)( void * );
  
 struct SortedList
 {
-	Node * front;
+	Node* front;
 	int numItems;
-	CompareFunctT cf;
+	CompareFunctT cf; 
 	DestructFunctT df;
 };
 typedef struct SortedList* SortedListPtr;
