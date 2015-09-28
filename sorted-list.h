@@ -44,7 +44,6 @@ typedef void (*DestructFuncT)( void * );
  struct Node
  {
 	 void * data;
-	 struct Node* prev;
 	 struct Node* next;
 	 int numPtrs;
  };
