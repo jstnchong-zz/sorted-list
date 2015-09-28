@@ -3,12 +3,13 @@
 
 
 
-
-
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
-	
-	
-	
+	SortedListPtr list = malloc(sizeof(struct SortedList));
+	memset(list,0,sizeof(struct SortedList));
+	list->cf = cf;
+	list->df = df;
+
+	return list;
 
 }
 void SLDestroy(SortedListPtr list){
