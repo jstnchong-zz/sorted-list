@@ -43,7 +43,9 @@ int SLRemove(SortedListPtr list, void *newObj){
 	
 }
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
-	
+	SortedListIteratorPtr sli = malloc(sizeof(struct SortedListIterator));
+	memset(sli, 0, sizeof(struct SortedListIterator));
+	return sli;
 	
 	
 	
@@ -51,7 +53,7 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	
 }
 void SLDestroyIterator(SortedListIteratorPtr iter){
-	
+	free(iter);
 	
 	
 	
