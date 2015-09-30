@@ -5,6 +5,8 @@
  */
 
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 //======Prototypes for User-Defined Functions==========
 //-=-=-=-You do not need to do anything with these definitions-=-=-=-
@@ -43,19 +45,19 @@ typedef void (*DestructFuncT)( void * );
  */
  struct Node
  {
-	 void * data;
-	 struct Node* next;
-	 int numPtrs;
+	 void * data; //data of object
+	 struct Node* next; //pointer to next node
+	 int refs; //number of reference pointers
  };
  typedef struct Node Node;
  
  
 struct SortedList
 {
-	Node* front;
-	int numItems;
-	CompareFunctT cf; 
-	DestructFunctT df;
+	Node* front; //front node of the list
+	int numItems; //number of items in the list
+	CompareFunctT cf; //comparater function pointer
+	DestructFunctT df; //destruct funstion pointer
 };
 typedef struct SortedList* SortedListPtr;
 
@@ -124,7 +126,7 @@ int SLRemove(SortedListPtr list, void *newObj);
  */
 struct SortedListIterator
 {
-	Node* current;
+	Node* current; //current node to which the iterator is pointing
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 

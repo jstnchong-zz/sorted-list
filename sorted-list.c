@@ -4,24 +4,26 @@
 
 
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
-	SortedListPtr list = malloc(sizeof(struct SortedList));
-	memset(list,0,sizeof(struct SortedList));
+	SortedListPtr list = (SortedListPtr)malloc(sizeof(struct SortedList));
+	
+	if(list != NULL) //checks if the malloc succeeds
+	{
+	list->front = NULL;
 	list->cf = cf;
 	list->df = df;
+	list->numItems = 0;
 
 	return list;
+	}
 
+	return NULL; //returns NULL if the function does not succeed
 }
+
 void SLDestroy(SortedListPtr list){
 	
-	//needs to destroy entire list except those with ref
-	
-	
-	
-	
-	
-	
+	free(list); //frees the entire list after indiviual nodes are removed
 }
+
 int SLInsert(SortedListPtr list, void *newObj){
 	
 	
@@ -38,22 +40,28 @@ int SLRemove(SortedListPtr list, void *newObj){
 }
 
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
-	SortedListIteratorPtr sli = malloc(sizeof(struct SortedListIterator));
-	memset(sli, 0, sizeof(struct SortedListIterator));
-	return sli;
+	SortedListIteratorPtr iter = (SortedListIteratorPtr)malloc(sizeof(struct SortedListIterator));
 	
-	
-	
-	
-	
+	if(iter != NULL) //checks if malloc succeeds
+	{
+	iter->current = list->front; //initializes current node of iterator to front
+		if(iter->current != NULL)
+		{
+			list->front->refs++;
+		}
+		return iter;
+	}	
+
+	return NULL; //returns NULL if function does not succeed
 }
+
+
 void SLDestroyIterator(SortedListIteratorPtr iter){
 	free(iter);
 	
-	
-	
-	
+		
 }
+
 void * SLNextItem(SortedListIteratorPtr iter){
 	if(iter==null){
 		return 0;
