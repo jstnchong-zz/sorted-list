@@ -32,16 +32,12 @@ int SLInsert(SortedListPtr list, void *newObj){
 	
 }
 int SLRemove(SortedListPtr list, void *newObj){
-	newObj->prev->next = newObj->next;
-	newObj->next->prev = newObj->prev;
-	
-	list->df(newObj->data);
-	free(newObj);
 	
 	
 	
 	
 }
+
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	SortedListIteratorPtr sli = malloc(sizeof(struct SortedListIterator));
 	memset(sli, 0, sizeof(struct SortedListIterator));
