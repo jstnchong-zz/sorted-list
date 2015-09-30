@@ -14,8 +14,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 }
 void SLDestroy(SortedListPtr list){
 	
-	
-	
+	//needs to destroy entire list except those with ref
 	
 	
 	
