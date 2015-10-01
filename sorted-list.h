@@ -48,6 +48,7 @@ typedef void (*DestructFuncT)( void * );
 	 void * data; //data of object
 	 struct Node* next; //pointer to next node
 	 int refs; //number of reference pointers
+	 int alive;
  };
  typedef struct Node Node;
  

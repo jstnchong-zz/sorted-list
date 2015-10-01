@@ -55,10 +55,29 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	return NULL; //returns NULL if function does not succeed
 }
 
-
+//DONE
 void SLDestroyIterator(SortedListIteratorPtr iter){
-	free(iter);
-	
+	if(iter==NULL){
+		return;
+	}
+	else if(iter->current == NULL){
+		return;
+	}
+	else if(iter->current->alive==0 &&  iter->current->refs==1){
+		
+		free(iter->curr);
+		free(iter);
+		return;
+	}
+	else if(iter->curr->alive==0 && iter->curr->refs>1){
+		iter->curr->refs--;
+		free(iter);
+		return;
+	}
+	else{
+		free(iter);
+		return;
+	}
 		
 }
 
