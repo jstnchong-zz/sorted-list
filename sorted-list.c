@@ -2,26 +2,43 @@
 #include <stddef.h>
 
 
-
+//DONE
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 	SortedListPtr list = (SortedListPtr)malloc(sizeof(struct SortedList));
 	
 	if(list != NULL) //checks if the malloc succeeds
 	{
-	list->front = NULL;
-	list->cf = cf;
-	list->df = df;
-	list->numItems = 0;
+		list->front = (Node *) malloc(sizeof(struct Node));
+		list->cf = cf;
+		list->df = df;
+		list->front->refs = 1;
+		list->front->alive = -1;
 
-	return list;
+		return list;
 	}
 
 	return NULL; //returns NULL if the function does not succeed
 }
-
+//DONE
 void SLDestroy(SortedListPtr list){
+	Node * temp;
+
+	while(list->front->next!=NULL){
+		if(list->front->next->alive ==1 && list->front->next->ptrs ==1){
+			temp = list->front->next;
+			list->front->next = list->front->next->next;
+			list->df(temp->data);
+			free(temp);
+		}
+		else if(list->front->next->alive == 1 && list->front->next->ptrs >1){
+			list->front->next->refs--;
+			list->front->next = list->front->next->next;
+		}
+	}
+	free(list->front);
+	free(list);
 	
-	free(list); //frees the entire list after indiviual nodes are removed
+	
 }
 
 int SLInsert(SortedListPtr list, void *newObj){
@@ -64,38 +81,56 @@ void SLDestroyIterator(SortedListIteratorPtr iter){
 		return;
 	}
 	else if(iter->current->alive==0 &&  iter->current->refs==1){
-		
-		free(iter->curr);
-		free(iter);
-		return;
-	}
-	else if(iter->curr->alive==0 && iter->curr->refs>1){
-		iter->curr->refs--;
+		list->df(iter->current->data);
+		free(iter->current);
 		free(iter);
 		return;
 	}
 	else{
+		iter->current->refs--;
 		free(iter);
 		return;
 	}
 		
 }
-
+//Might Need Adjustment
 void * SLNextItem(SortedListIteratorPtr iter){
 	if(iter==null){
-		return 0;
+		return NULL;
 	}
-	return iter->next->data;
+	else if(iter->current==null){
+		return null;
+	}
+	else if(iter->current->alive==0 && iter->current->refs == 1){
+		Node* temp = iter;
+		iter = iter->current->next;
+		free(temp);
+		return iter;
+	}
+	else if(iter->current->alive==0 && iter->current0->refs >1){
+		iter->current->refs--;
+		iter->current->next;
+		return iter;
+	}
+	else {
+		iter->current = iter->current->next;
+		return iter;
+	}
 	
 	
 	
 }
-
+//DONE
 void * SLGetItem( SortedListIteratorPtr iter ){
 	if(iter==null){
 		return NULL;
 	}
-	return iter->current->data;
+	else if(iter->current==null){
+		return NULL;
+	}
+	else{
+		return iter->current->data;
+	}
 }
 
 
