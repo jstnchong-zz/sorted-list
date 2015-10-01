@@ -139,9 +139,68 @@ int SLInsert(SortedListPtr list, void *newObj){
 }
 
 int SLRemove(SortedListPtr list, void *newObj){
-	
-	
-	
+    if(list->front->next == NULL) //LIST IS EMPTY NOTHING TO REMOVE
+    {
+        return 0;
+    }
+    
+    if(list->front->next->next == NULL) //LIST ONLY HAS ONE ITEM
+    {
+        if((list->cf)(list->front->next->data, newObj) == 0))
+        {
+            list->front->next->alive = 0;
+            list->front->next->refs--;
+            list->front->next = NULL;
+            return 1;
+            
+        }
+        else //ITEM IS NOT IN LIST
+            return 0;
+    }
+    
+    else
+        Node* temp = list->front->next;
+        
+        //CHECKS FRONT OF LIST
+        if((list->cf)(temp->data, newObj) == 0) //ITEM FOUND!
+        {
+            temp->alive = 0;
+            temp->refs--;
+            list->front->next = temp->next;
+            //NOT SURE IF I SHOULD FREE TEMP
+            return 1;
+        }
+    
+        else
+            Node* prev= temp; //PREVIOUS NODE USED TO REMOVE NODE
+            temp = temp->next;
+    
+            while(temp->next!=NULL) 
+            {
+                if((list->cf)(temp->data, newObj) == 0) //ITEM FOUND!
+                {
+                    temp->alive = 0;
+                    temp->refs--;
+                    prev->next = temp->next;
+                    //NOT SURE IF I SHOULD FREE TEMP
+                    return 1;
+                }
+                else
+                    prev = temp;
+                    temp= temp->next;
+            }
+    
+    if((list->cf)(temp->data, newObj) == 0) //ITEM FOUND!
+    {
+        temp->alive = 0;
+        temp->refs--;
+        prev->next = temp->next;
+        //NOT SURE IF I SHOULD FREE TEMP
+        return 1;
+    }
+    
+    //free temp and prev?
+    return 0; //WE HAVE REACHED THE END OF OUR LIST AND ITEM WAS NOT FOUND
 	
 }
 

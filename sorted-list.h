@@ -100,7 +100,7 @@ void SLDestroy(SortedListPtr list);
  */
 
 int SLInsert(SortedListPtr list, void *newObj);
-    
+
 
 
 /*
