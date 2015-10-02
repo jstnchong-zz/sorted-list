@@ -118,7 +118,7 @@ int SLRemove(SortedListPtr list, void *newObj){
             Node* prev= temp; //PREVIOUS NODE USED TO REMOVE NODE
             temp = temp->next;
     
-            while(temp->next!=NULL) 
+            while(temp->next!=NULL)
             {
                 if((list->cf)(temp->data, newObj) == 0) //ITEM FOUND!
                 {
