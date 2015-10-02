@@ -57,20 +57,13 @@ int SLInsert(SortedListPtr list, void *newObj){
         Node* prev = list->front;
         Node* ptr = prev->next; //POINTER TO ITERATE THROUGH THE LIST
         
-    while(ptr!=NULL){
-        
-	//CHECKS FRONT OF LIST
-    if((list->cf)(ptr->data, newObj) == 0) //ITEM IS ALREADY IN LIST
-    {
-        (list->df)(temp->data); //Are we supposed to free this?
-        free(temp);
-        (list->df)(temp->data); //Are we supposed to free this?
-        free(temp);
-        return 0;
-    }
+        if((list->cf)(ptr->data, newObj) == 0) //ITEM IS ALREADY IN LIST
+        {
+            (list->df)(temp->data); //Are we supposed to free this?
+            free(temp);
+            return 0;
+        }
 
-    else if((list->cf)(ptr->data, newObj) < 0) //NODE SHOULD BE BEFORE PTR
-    {
         else if((list->cf)(ptr->data, newObj) < 0) //NODE SHOULD BE BEFORE PTR
         {
         prev->next = temp;
@@ -85,13 +78,11 @@ int SLInsert(SortedListPtr list, void *newObj){
             prev = prev->next;
             ptr =  ptr->next;
         }
-
     }
         
     prev->next = temp;
     temp->next = ptr;
     temp->refs = 1;
-
     temp->alive = 1;
 }
 
@@ -231,7 +222,6 @@ void * SLNextItem(SortedListIteratorPtr iter){
 		iter->current = iter->current->next;
 		return iter;
     }
-    
 }
 
 //DONE
