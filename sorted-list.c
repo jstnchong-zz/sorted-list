@@ -35,7 +35,7 @@ void SLDestroy(SortedListPtr list){
 	free(list->front);
 	free(list);
 }
-
+//DONE
 int SLInsert(SortedListPtr list, void *newObj){
     Node* temp =(Node*)malloc(sizeof(struct Node)); //NEW NODE TO BE ADDED TO LIST
     temp->data = newObj;
@@ -69,65 +69,39 @@ int SLInsert(SortedListPtr list, void *newObj){
     temp->refs = 1;
     temp->alive = 1;
 }
-
+//DONE
 int SLRemove(SortedListPtr list, void *newObj){
-    if(list->front->next == NULL) //LIST IS EMPTY NOTHING TO REMOVE
+    if(list!=NULL && list->front->next == NULL && newObj!=null) 
     {
         return 0;
     }
-    if(list->front->next->next == NULL) //LIST ONLY HAS ONE ITEM
-    {
-        if((list->cf)(list->front->next->data, newObj) == 0))
-        {
-            list->front->next->alive = 0;
-            list->front->next->refs--;
-            list->front->next = NULL;
-            return 1;
+    Node* ptr = list->front->next;
+    Node* prev = list->front;
+    while(ptr->next!=null){
+	if((list->cf)(ptr->data, newObj)==0){
+		prev->next = prev->next->next;
+		ptr->refs--;
+		ptr->alive=0;
+		if(ptr->refs==0 && ptr->alive=0){
+			(list->df)(ptr->data);
+			free(ptr);
+			return 1;
+		}
+		else{
+			return 1;
+		}
+	}
+	else if((list->cf)(ptr->data, newObj)>0){
+		return 0;
+    	}
+	else{
+		prev=prev->next;
+		ptr = ptr->next;
         }
-        else //ITEM IS NOT IN LIST
-            return 0;
     }
-    else
-        Node* temp = list->front->next;
-    
-        //CHECKS FRONT OF LIST
-        if((list->cf)(temp->data, newObj) == 0) //ITEM FOUND!
-        {
-            temp->alive = 0;
-            temp->refs--;
-            list->front->next = temp->next;
-            //NOT SURE IF I SHOULD FREE TEMP
-            return 1;
-        }
-        else
-            Node* prev= temp; //PREVIOUS NODE USED TO REMOVE NODE
-            temp = temp->next;
-            while(temp->next!=NULL)
-            {
-                if((list->cf)(temp->data, newObj) == 0) //ITEM FOUND!
-                {
-                    temp->alive = 0;
-                    temp->refs--;
-                    prev->next = temp->next;
-                    //NOT SURE IF I SHOULD FREE TEMP
-                    return 1;
-                }
-                else
-                    prev = temp;
-                    temp= temp->next;
-            }
-    if((list->cf)(temp->data, newObj) == 0) //ITEM FOUND!
-    {
-        temp->alive = 0;
-        temp->refs--;
-        prev->next = temp->next;
-        //NOT SURE IF I SHOULD FREE TEMP
-        return 1;
-    }
-    //free temp and prev?
-    return 0; //WE HAVE REACHED THE END OF OUR LIST AND ITEM WAS NOT FOUND
+    return 0; 
 }
-
+//DONE
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	SortedListIteratorPtr iter = (SortedListIteratorPtr)malloc(sizeof(struct SortedListIterator));
 	if(iter != NULL) //checks if malloc succeeds
@@ -163,7 +137,7 @@ void SLDestroyIterator(SortedListIteratorPtr iter){
 	}
 }
 
-//Might Need Adjustment
+//DONE
 void * SLNextItem(SortedListIteratorPtr iter){
 	if(iter==null){
 		return NULL;
@@ -177,16 +151,27 @@ void * SLNextItem(SortedListIteratorPtr iter){
 		Node* temp = iter;
 		iter = iter->current->next;
 		free(temp);
-		return iter;
+		return iter->current->data;
 	}
 	else if(iter->current->alive==0 && iter->current0->refs >1){
 		iter->current->refs--;
 		iter->current->next;
-		return iter;
+		if(iter->current == NULL){
+			return null;
+		}
+		else{
+			return iter->current->data;
+		}
+		
 	}
 	else {
 		iter->current = iter->current->next;
-		return iter;
+		if(iter->current == NULL){
+			return null;
+		}
+		else{
+			return iter->current->data;
+		}
 	}
 }
 
