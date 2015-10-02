@@ -16,6 +16,7 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 	}
 	return NULL; //returns NULL if the function does not succeed
 }
+
 //DONE
 void SLDestroy(SortedListPtr list){
 	Node * temp;
@@ -34,6 +35,7 @@ void SLDestroy(SortedListPtr list){
 	free(list->front);
 	free(list);
 }
+
 int SLInsert(SortedListPtr list, void *newObj){
     Node* temp =(Node*)malloc(sizeof(struct Node)); //NEW NODE TO BE ADDED TO LIST
     temp->data = newObj;
@@ -45,7 +47,7 @@ int SLInsert(SortedListPtr list, void *newObj){
     while(ptr!=null){
         if((list->cf)(ptr->data, newObj) == 0) //ITEM IS ALREADY IN LIST
         {
-            (list->df)(temp->data); //Are we supposed to free this?
+            (list->df)(temp->data);
             free(temp); 
             return 0;
         }
@@ -67,6 +69,7 @@ int SLInsert(SortedListPtr list, void *newObj){
     temp->refs = 1;
     temp->alive = 1;
 }
+
 int SLRemove(SortedListPtr list, void *newObj){
     if(list->front->next == NULL) //LIST IS EMPTY NOTHING TO REMOVE
     {
@@ -86,6 +89,7 @@ int SLRemove(SortedListPtr list, void *newObj){
     }
     else
         Node* temp = list->front->next;
+    
         //CHECKS FRONT OF LIST
         if((list->cf)(temp->data, newObj) == 0) //ITEM FOUND!
         {
@@ -123,6 +127,7 @@ int SLRemove(SortedListPtr list, void *newObj){
     //free temp and prev?
     return 0; //WE HAVE REACHED THE END OF OUR LIST AND ITEM WAS NOT FOUND
 }
+
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	SortedListIteratorPtr iter = (SortedListIteratorPtr)malloc(sizeof(struct SortedListIterator));
 	if(iter != NULL) //checks if malloc succeeds
@@ -136,6 +141,7 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	}
 	return NULL; //returns NULL if function does not succeed
 }
+
 //DONE
 void SLDestroyIterator(SortedListIteratorPtr iter){
 	if(iter==NULL){
@@ -156,6 +162,7 @@ void SLDestroyIterator(SortedListIteratorPtr iter){
 		return;
 	}
 }
+
 //Might Need Adjustment
 void * SLNextItem(SortedListIteratorPtr iter){
 	if(iter==null){
@@ -182,6 +189,7 @@ void * SLNextItem(SortedListIteratorPtr iter){
 		return iter;
 	}
 }
+
 //DONE
 void * SLGetItem( SortedListIteratorPtr iter ){
 	if(iter==null){
