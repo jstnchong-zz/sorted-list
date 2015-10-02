@@ -22,7 +22,6 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 
 //DONE
 void SLDestroy(SortedListPtr list){
-
 	Node * temp;
     
 	while(list->front->next!=NULL){
@@ -52,18 +51,14 @@ int SLInsert(SortedListPtr list, void *newObj){
     Node* prev = list->front;	
     Node* ptr = prev->next; //POINTER TO ITERATE THROUGH THE LIST
     
-    while(ptr!=null){
-
-	//CHECKS FRONT OF LIST
-
-    temp->refs = 0;
-    temp->alive = 0;
-    Node* prev = list->front;
-    Node* ptr = prev->next; //POINTER TO ITERATE THROUGH THE LIST
-
+    while(ptr!=null){ //CHECKS FRONT OF LIST
+        temp->refs = 0;
+        temp->alive = 0;
+        Node* prev = list->front;
+        Node* ptr = prev->next; //POINTER TO ITERATE THROUGH THE LIST
+        
     while(ptr!=NULL){
-
-
+        
 	//CHECKS FRONT OF LIST
     if((list->cf)(ptr->data, newObj) == 0) //ITEM IS ALREADY IN LIST
     {
@@ -96,6 +91,7 @@ int SLInsert(SortedListPtr list, void *newObj){
     prev->next = temp;
     temp->next = ptr;
     temp->refs = 1;
+
     temp->alive = 1;
 }
 
@@ -120,12 +116,10 @@ int SLRemove(SortedListPtr list, void *newObj){
     }
     
     else
-
         Node* temp = list->front->next;
 
         //CHECKS FRONT OF LIST
         if((list->cf)(temp->data, newObj) == 0) //ITEM FOUND!
-
         {
             temp->alive = 0;
             temp->refs--;
