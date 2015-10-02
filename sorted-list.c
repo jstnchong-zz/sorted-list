@@ -229,16 +229,13 @@ void * SLGetItem( SortedListIteratorPtr iter ){
 	if(iter==null){
         return NULL;
 	}
-
 	else if(iter->current==null){
 		return NULL;
 	}
-
 	else{
 		return iter->current->data;
 	}
 }
-
 
 
 
