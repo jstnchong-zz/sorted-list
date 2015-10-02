@@ -93,7 +93,6 @@ int SLInsert(SortedListPtr list, void *newObj){
     temp->data = newObj;
 
     temp->next = NULL;
-<<<<<<< HEAD
     temp->refs = 0;
     temp->alive = 0;
     Node* prev = list->front;	
@@ -102,7 +101,6 @@ int SLInsert(SortedListPtr list, void *newObj){
     while(ptr!=null){
 
 	//CHECKS FRONT OF LIST
-=======
 
     temp->refs = 0;
 
@@ -119,43 +117,29 @@ int SLInsert(SortedListPtr list, void *newObj){
 
 	//CHECKS FRONT OF LIST
 
->>>>>>> dbf45d6d5b9bede7801e1ed53ab05c14dae86ca1
         if((list->cf)(ptr->data, newObj) == 0) //ITEM IS ALREADY IN LIST
 
         {
-<<<<<<< HEAD
             (list->df)(temp->data); //Are we supposed to free this?
             free(temp); 
-=======
 
             (list->df)(temp->data); //Are we supposed to free this?
 
             free(temp); 
 
->>>>>>> dbf45d6d5b9bede7801e1ed53ab05c14dae86ca1
             return 0;
 
         }
 
-        
-<<<<<<< HEAD
         else if((list->cf)(ptr->data, newObj) < 0) //NODE SHOULD BE BEFORE PTR
         {
-=======
-
         else if((list->cf)(ptr->data, newObj) < 0) //NODE SHOULD BE BEFORE PTR
 
         {
-
->>>>>>> dbf45d6d5b9bede7801e1ed53ab05c14dae86ca1
             prev->next = temp;
 	    temp->next = ptr;
 	    temp->refs = 1;
 	    temp->alive = 1;
-<<<<<<< HEAD
-=======
-
->>>>>>> dbf45d6d5b9bede7801e1ed53ab05c14dae86ca1
             return 1;
 
         }
@@ -163,22 +147,16 @@ int SLInsert(SortedListPtr list, void *newObj){
 		prev = prev->next;
 		ptr =  ptr->next;
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> dbf45d6d5b9bede7801e1ed53ab05c14dae86ca1
     }
     prev->next = temp;
     temp->next = ptr;
     temp->refs = 1;
     temp->alive = 1;
-<<<<<<< HEAD
         
-=======
 
         
 
->>>>>>> dbf45d6d5b9bede7801e1ed53ab05c14dae86ca1
 }
 
 
@@ -324,23 +302,17 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	if(iter != NULL) //checks if malloc succeeds
 
 	{
-<<<<<<< HEAD
 	iter->current = list->front->next; //initializes current node of iterator to front
-=======
 
 	iter->current = list->front->next; //initializes current node of iterator to front
 
->>>>>>> dbf45d6d5b9bede7801e1ed53ab05c14dae86ca1
 		if(iter->current != NULL)
 
 		{
-<<<<<<< HEAD
 			list->front->next->refs++;
-=======
 
 			list->front->next->refs++;
 
->>>>>>> dbf45d6d5b9bede7801e1ed53ab05c14dae86ca1
 		}
 
 		return iter;
