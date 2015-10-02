@@ -5,6 +5,9 @@
 //DONE
 SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 	SortedListPtr list = (SortedListPtr)malloc(sizeof(struct SortedList));
+	if(cf==NULL && df==NULL){
+		return NULL;
+	}
 	if(list != NULL) //checks if the malloc succeeds
 	{
 		list->front = (Node*)malloc(sizeof(struct Node));
@@ -37,6 +40,9 @@ void SLDestroy(SortedListPtr list){
 }
 //DONE
 int SLInsert(SortedListPtr list, void *newObj){
+    if(newObj==NULL || list==NULL){
+	return 0;
+    }
     Node* temp =(Node*)malloc(sizeof(struct Node)); //NEW NODE TO BE ADDED TO LIST
     temp->data = newObj;
     temp->next = NULL;
@@ -71,39 +77,44 @@ int SLInsert(SortedListPtr list, void *newObj){
 }
 //DONE
 int SLRemove(SortedListPtr list, void *newObj){
-    if(list!=NULL && list->front->next == NULL && newObj!=null) 
+    if(list==NULL || newObj==null) 
     {
         return 0;
     }
-    Node* ptr = list->front->next;
-    Node* prev = list->front;
-    while(ptr->next!=null){
-	if((list->cf)(ptr->data, newObj)==0){
-		prev->next = prev->next->next;
-		ptr->refs--;
-		ptr->alive=0;
-		if(ptr->refs==0 && ptr->alive=0){
-			(list->df)(ptr->data);
-			free(ptr);
-			return 1;
+    if(list->front->next != NULL){
+    	Node* ptr = list->front->next;
+    	Node* prev = list->front;
+    	while(ptr->next!=null){
+		if((list->cf)(ptr->data, newObj)==0){
+			prev->next = prev->next->next;
+			ptr->refs--;
+			ptr->alive=0;
+			if(ptr->refs==0 && ptr->alive=0){
+				(list->df)(ptr->data);
+				free(ptr);
+				return 1;
+			}
+			else{
+				return 1;
+			}
 		}
+		else if((list->cf)(ptr->data, newObj)>0){
+			return 0;
+    		}
 		else{
-			return 1;
-		}
-	}
-	else if((list->cf)(ptr->data, newObj)>0){
-		return 0;
+			prev=prev->next;
+			ptr = ptr->next;
+        	}
     	}
-	else{
-		prev=prev->next;
-		ptr = ptr->next;
-        }
     }
     return 0; 
 }
 //DONE
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	SortedListIteratorPtr iter = (SortedListIteratorPtr)malloc(sizeof(struct SortedListIterator));
+	if(list==NULL){
+		return NULL;
+	}
 	if(iter != NULL) //checks if malloc succeeds
 	{
 		iter->current = list->front->next; //initializes current node of iterator to front
