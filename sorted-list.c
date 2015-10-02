@@ -46,96 +46,39 @@ int SLInsert(SortedListPtr list, void *newObj){
     Node* temp =(Node*)malloc(sizeof(struct Node)); //NEW NODE TO BE ADDED TO LIST
     temp->data = newObj;
     temp->next = NULL;
-    temp->refs = 0
+    temp->refs = 0;
     temp->alive = 0;
+    Node* prev = list->front;	
+    Node* ptr = prev->next; //POINTER TO ITERATE THROUGH THE LIST
     
-    if (list->front->next == NULL) { //LIST IS EMPTY SO INSERT AT FRONT OF LIST
-        list->front->next = temp;
-        list->front->next->refs++;
-        list->front->next->alive = 1;
-        return 1;
-    }
-    
-    else
-        
-    Node* ptr = list->front->next; //POINTER TO ITERATE THROUGH THE LIST
-    
-    if (ptr->next == NULL){ //LIST ONLY HAS 1 NODE
-        if((list->cf)(ptr->data, newObj) > 0)
-        {
-            ptr->next = temp;
-            ptr->next->refs++;
-            ptr->next->alive = 1;
-            return 1;
-        }
-        else if((list->cf)(ptr->data, newObj) < 0)
-        {
-            ptr = ptr->next;
-            list->front->next = temp;
-            temp->next = ptr;
-            list->front->next->refs++;
-            list->front->next->alive = 1;
-            return 1;
-        }
-        else
-            list->df(temp->data);
-            free(temp);
-            return 0; //ITEM ALREADY IN LIST
-    }
-    
-    else //CASE WHERE THERE ARE MORE THAN TWO ITEMS IN THE LIST
-        
-        //CHECKS FRONT OF LIST
+    while(ptr!=null){
+
+	//CHECKS FRONT OF LIST
         if((list->cf)(ptr->data, newObj) == 0) //ITEM IS ALREADY IN LIST
         {
-            list->df(temp->data);
-            free(temp);
+            (list->df)(temp->data); //Are we supposed to free this?
+            free(temp); 
             return 0;
         }
         
-        else if((list->cf)(ptr->data, newObj) < 0) //NODE IS AT FRONT OF LIST
+        else if((list->cf)(ptr->data, newObj) < 0) //NODE SHOULD BE BEFORE PTR
         {
-            ptr = ptr->next;
-            list->front->next = temp;
-            temp->next = ptr;
-            list->front->next->refs++;
-            list->front->next->alive = 1;
+            prev->next = temp;
+	    temp->next = ptr;
+	    temp->refs = 1;
+	    temp->alive = 1;
             return 1;
         }
-    
-        while(ptr->next != NULL)
-        {
-            if((list->cf)(ptr->data, newObj) > 0 && (list->cf)(ptr->next->data, newObj) < 0) //FOUND PLACE TO INSERT NODE
-            {
-                temp->next = ptr->next;
-                ptr->next = temp;
-                temp->refs++;
-                temp->alive = 1;
-                return 1;
-            }
-            
-            if((list->cf)(ptr->data, newObj) == 0) //ITEM IS ALREADY IN LIST
-            {
-                list->df(temp->data);
-                free(temp);
-                return 0;
-            }
-            else
-                
-            ptr = ptr->next;
-        }
-    
-        if((list->cf)(ptr->data, newObj) == 0) //LAST ITEM IS ALREADY IN LIST
-        {
-            list->df(temp->data);
-            free(temp);
-            return 0;
-        }
-    
-        ptr->next = temp; //REACHED THE END OF THE LIST SO INSERT NODE TO END OF LIST
-        ptr->next->refs++;
-        ptr->next->alive = 1;
-        return 1;
+	else{
+		prev = prev->next;
+		ptr =  ptr->next;
+	}
+    }
+    prev->next = temp;
+    temp->next = ptr;
+    temp->refs = 1;
+    temp->alive = 1;
+        
 }
 
 int SLRemove(SortedListPtr list, void *newObj){
@@ -209,10 +152,10 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	
 	if(iter != NULL) //checks if malloc succeeds
 	{
-	iter->current = list->front; //initializes current node of iterator to front
+	iter->current = list->front->next; //initializes current node of iterator to front
 		if(iter->current != NULL)
 		{
-			list->front->refs++;
+			list->front->next->refs++;
 		}
 		return iter;
 	}	
