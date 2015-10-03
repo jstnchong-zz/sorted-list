@@ -3,5 +3,18 @@
  */
 
 #include	<string.h>
-#include	<stdio.h>
 #include	"sorted-list.h"
+
+
+main(int argc, char ** argv){
+
+
+
+
+
+
+
+
+
+
+}
