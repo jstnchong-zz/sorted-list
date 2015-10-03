@@ -5,6 +5,31 @@
 #include	<string.h>
 #include	"sorted-list.h"
 #include	<stdin.h>
+
+void shiftLeft(int index, int end)
+{
+    int prev;
+    int ptr;
+    
+    if(iterEnd[0] == NULL){
+        return;
+    }
+    
+    int prev = index;
+    int ptr = index+1;
+    
+    while(ptr<end)
+    {
+        iterInd[prev] = iterInd[ptr];
+        prev = ptr;
+        ptr++;
+    }
+    
+    free(iterInd[end])
+    
+    return;
+}
+
 SortedListIteratorPtr iterInd[100];
 
 
