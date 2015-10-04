@@ -4,9 +4,31 @@
 
 #include	<string.h>
 #include	"sorted-list.h"
-#include	<stdin.h>
 
 SortedListIteratorPtr iterInd[100];
+
+int CompareFuncT( void * a, void * b){
+	int* i = (int*) a;
+	int* j = (int*) b;
+	if(i<j){
+		return -1;
+	}
+	else if(i>j){
+		return 1;
+	}
+	else{
+		return 0;
+	}
+
+
+}
+int DestructFuncT( void * a){
+	int* i =(int*) a;
+	free(i);
+}
+
+
+
 
 void shiftLeft(int index, int end)
 {
@@ -17,8 +39,8 @@ void shiftLeft(int index, int end)
         return;
     }
     
-    int prev = index;
-    int ptr = index+1;
+    prev = index;
+    ptr = index+1;
     
     while(ptr<end)
     {
@@ -36,6 +58,10 @@ void shiftLeft(int index, int end)
 
 
 main(int argc, char ** argv){
+	int (*cf)(void *, void *);
+	int (*df)(void *);
+	cf = &CompareFuncT;
+	df = &DestructFuncT;
 	char command;
 	SortedListPtr LL = SLCreate(cf, df);
 	int *data = malloc(sizeof(int));
