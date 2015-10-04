@@ -51,7 +51,7 @@ int main(){
     si = SLCreateIterator(sl);
 	//printf("It hits marker 2\n");
 	p = SLGetItem(si);
-	/printf("It hits marker 3\n");
+	printf("It hits marker 3\n");
 	if(sl->ls == 0){
 		printf("list is empty");
 	}
