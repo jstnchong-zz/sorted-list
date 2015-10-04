@@ -66,6 +66,7 @@ main(int argc, char ** argv){
 	SortedListPtr LL = SLCreate(cf, df);
 	int *data = malloc(sizeof(int));
 	int arrayEnd=0;
+	int counter =0;
 	do{
 		printf("Enter a command. Type h for list of commands\n");
 		command = (char) getchar();
@@ -88,7 +89,7 @@ main(int argc, char ** argv){
 					printf("The iterator is created.\n");
 					break;
 
-			case('d'):printf("Enter the iterator's index number.\n"){
+			case('d'):printf("Enter the iterator's index number.\n");
 					(*data) = getchar();
 					if((*data)>=arrayEnd){
 						printf("The iterator at index %d does not exist.\n", (*data));
