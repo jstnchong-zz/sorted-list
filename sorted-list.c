@@ -11,6 +11,8 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 	if(list != NULL) //checks if the malloc succeeds
 	{
 		list->front = (Node*)malloc(sizeof(struct Node));
+		list->front->next = NULL;
+		list->ls = 0;
 		list->cf = cf;
 		list->df = df;
 		list->front->refs = 1;
@@ -29,10 +31,12 @@ void SLDestroy(SortedListPtr list){
 			list->front->next = list->front->next->next;
 			list->df(temp->data);
 			free(temp);
+			list->ls--;
 		}
 		else if(list->front->next->alive == 1 && list->front->next->refs >1){
 			list->front->next->refs--;
 			list->front->next = list->front->next->next;
+			list->ls--;
 		}
 	}
 	free(list->front);
@@ -40,40 +44,53 @@ void SLDestroy(SortedListPtr list){
 }
 //DONE
 int SLInsert(SortedListPtr list, void *newObj){
+	
     if(newObj==NULL || list==NULL){
 	return 0;
     }
     Node* temp =(Node*)malloc(sizeof(struct Node)); //NEW NODE TO BE ADDED TO LIST
+    //memcpy(temp->data,newObj,sizeof(newObj));
+    
+    
     temp->data = newObj;
+    
     temp->next = NULL;
     temp->refs = 0;
     temp->alive = 0;
     Node* prev = list->front;	
     Node* ptr = prev->next; //POINTER TO ITERATE THROUGH THE LIST
     while(ptr!=NULL){
-        if((list->cf)(ptr->data, newObj) == 0) //ITEM IS ALREADY IN LIST
+		//printf("%d Compared Object 1\n", (*((int*)(ptr->data))));
+		//printf("%d Compared Object 2\n", (*((int*)(temp->data))));
+        if((list->cf)(ptr->data, temp->data) == 0) //ITEM IS ALREADY IN LIST
         {
             (list->df)(temp->data);
+			//printf("They hold the same value.\n\n");
             free(temp); 
             return 0;
         }
-        else if((list->cf)(ptr->data, newObj) > 0) //NODE SHOULD BE BEFORE PTR
+        else if((list->cf)(ptr->data, temp->data) > 0) //NODE SHOULD BE BEFORE PTR
         {
+			//printf("Object 2 is bigger.\n\n");
             prev->next = temp;
-	    temp->next = ptr;
-	    temp->refs = 1;
-	    temp->alive = 1;
+			temp->next = ptr;
+			temp->refs = 1;
+			temp->alive = 1;
+			list->ls++;
             return 1;
         }
-	else{
-		prev = prev->next;
-		ptr =  ptr->next;
-	}
+		else{
+			//printf("Object 2 is smaller.\n\n");
+			prev = prev->next;
+			ptr =  ptr->next;
+		}
     }
     prev->next = temp;
     temp->next = ptr;
     temp->refs = 1;
     temp->alive = 1;
+    list->ls++;
+	return 1;
 }
 //DONE
 int SLRemove(SortedListPtr list, void *newObj){
@@ -92,13 +109,15 @@ int SLRemove(SortedListPtr list, void *newObj){
 			if(ptr->refs==0 && ptr->alive==0){
 				(list->df)(ptr->data);
 				free(ptr);
+				list->ls--;
 				return 1;
 			}
 			else{
+				list->ls--;
 				return 1;
 			}
 		}
-		else if((list->cf)(ptr->data, newObj)<0){
+		else if((list->cf)(ptr->data, newObj)>0){
 			return 0;
     		}
 		else{
@@ -122,6 +141,10 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 		if(iter->current != NULL)
 		{
 			list->front->next->refs++;
+		}
+		else{
+			free(iter);
+			return iter;
 		}
 		return iter;
 	}
@@ -160,14 +183,17 @@ void * SLNextItem(SortedListIteratorPtr iter){
 	}
 
 	else if(iter->current->alive==0 && iter->current->refs == 1){
-		Node* temp = iter;
-		iter = iter->current->next;
+		Node* temp = iter->current;
+		iter->current = iter->current->next;
 		free(temp);
+		if(iter->current == NULL){
+			return NULL;
+		}
 		return iter->current->data;
 	}
 	else if(iter->current->alive==0 && iter->current->refs >1){
 		iter->current->refs--;
-		iter->current->next;
+		iter->current = iter->current->next;
 		if(iter->current == NULL){
 			return NULL;
 		}

@@ -59,6 +59,7 @@ struct SortedList
 	int numItems; //number of items in the list
 	CompareFuncT cf; //comparater function pointer
 	DestructFuncT df; //destruct funstion pointer
+	int ls; //size of the list
 };
 typedef struct SortedList* SortedListPtr;
 
