@@ -32,14 +32,12 @@ int DestructInt( void * a)
 int main(){
     int x = 0;
     int*p;
-    int*v = &x;
     p = malloc(sizeof(int));
     SortedListPtr sl = SLCreate(CompareInt, DestructInt);
     SortedListIteratorPtr si;
+    printf("Enter value here: ");
     while(scanf("%d\n",&x)==1) {
-        v = malloc(sizeof(int));
-        v* = x;
-        printf("BUGGGG");
+        int* v = &x;
         SLInsert(sl,v);
     }
     
