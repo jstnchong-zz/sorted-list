@@ -129,21 +129,22 @@ main(int argc, char ** argv){
 	int counter =0;
 	do{
 		printf("Enter a command. Type h for list of commands\n");
-        command = scanf("%c\n", &command);//(char) getchar();
+       		scanf("%c\n", &command);//(char) getchar();
 		switch(command){
-			case('i'):printf("Enter an integer you wish to insert as a node.\n");
-                scanf("%c", data);//(*data) = getchar();
+				case('i'):printf("Enter an integer you wish to insert as a node.\n");
+                		scanf("%d\n", data);//(*data) = getchar();
 					SLInsert(LL, data);
-                printf("The value: %d was inserted successfully", (*data));
+                		printf("The value: %d was inserted successfully", (*data));
 					break;
 
 			case('r'):printf("Enter an integer you wish to remove from the list.\n");
-					(*data) = getchar();
+					scanf("%d\n", data);//(*data) = getchar();
 					SLRemove(LL, data);
 					break;
 
 			case('c'):if(arrayEnd>=100){
 					printf("There can only be a maximum of 100 iterators. Please delete one and try again.\n");
+					break;
 				  }
 					iterInd[arrayEnd] = SLCreateIterator(LL);
 					arrayEnd++;
@@ -151,7 +152,7 @@ main(int argc, char ** argv){
 					break;
 
 			case('d'):printf("Enter the iterator's index number.\n");
-					(*data) = getchar();
+					scanf("%d\n", data); //(*data) = getchar();
 					if((*data)>=arrayEnd){
 						printf("The iterator at index %d does not exist.\n", (*data));
 						break;
@@ -163,7 +164,7 @@ main(int argc, char ** argv){
 					break;
 
 			case('g'):printf("Enter the iterator's index number.");
-					(*data) = getchar();
+					scanf("%d\n", data); //(*data) = getchar();
 					if((*data)>=arrayEnd){
 						printf("The iterator at index %d does not exist.\n", (*data));
 						break;
@@ -173,7 +174,7 @@ main(int argc, char ** argv){
 					break;
 
 			case('n'):printf("Enter the iterator's index number.");
-					(*data) = getchar();
+					scanf("%d\n", data); //(*data) = getchar();
 					if((*data)>=arrayEnd){
 						printf("The iterator at index %d does not exist.\n", (*data));
 						break;
@@ -188,11 +189,11 @@ main(int argc, char ** argv){
 					"Entering d destroys an iterator.\n"
 					"Entering g gets the value of an iterator's node.\n"
 					"Entering n gets moves an iterator to the next node, then returns the value of that next node.\n");
-                    break;
+                    			break;
 	
 			case('q'): printf("Program terminated."); break;
 
-			default: printf("Input is invalid, please try again. Type h for list of commands");
+			default: printf("Input is invalid, please try again.\n");
 
 
 
