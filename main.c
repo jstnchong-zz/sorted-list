@@ -44,6 +44,7 @@ int main(){
     while(count==1) {
          x++;//careful
          x = (int*) malloc(sizeof(int));
+	printf("Enter value here: \n");
          count = scanf("%d",x);
 		//printf("%d\tThis was entered.\n", (*x));
     }
