@@ -62,12 +62,19 @@ int SLInsert(SortedListPtr list, void *newObj){
         {
             (list->df)(temp->data);
 			//printf("They hold the same value.\n\n");
+		printf("%d Compared Object 1\n", (*((int*)(ptr->data))));
+		printf("%d Compared Object 2\n", (*((int*)(temp->data))));
+        if((list->cf)(ptr->data, temp->data) == 0) //ITEM IS ALREADY IN LIST
+        {
+            (list->df)(temp->data);
+			printf("They hold the same value.\n\n");
             free(temp); 
             return 0;
         }
         else if((list->cf)(ptr->data, temp->data) > 0) //NODE SHOULD BE BEFORE PTR
         {
 			//printf("Object 2 is bigger.\n\n");
+			printf("Object 2 is bigger.\n\n");
             prev->next = temp;
 			temp->next = ptr;
 			temp->refs = 1;
@@ -76,6 +83,7 @@ int SLInsert(SortedListPtr list, void *newObj){
         }
 		else{
 			//printf("Object 2 is smaller.\n\n");
+			printf("Object 2 is smaller.\n\n");
 			prev = prev->next;
 			ptr =  ptr->next;
 		}
