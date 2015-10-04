@@ -36,7 +36,7 @@ int main(){
     p = malloc(sizeof(int));
     SortedListPtr sl = SLCreate(CompareInt, DestructInt);
     SortedListIteratorPtr si;
-    while(scanf("%d",&x)==1) {
+    while(scanf("%d\n",&x)==1) {
         v = malloc(sizeof(int));
         *v = x;
         printf("BUGGGG");
