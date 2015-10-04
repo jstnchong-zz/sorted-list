@@ -129,6 +129,8 @@ int SLRemove(SortedListPtr list, void *newObj);
 struct SortedListIterator
 {
 	Node* current; //current node to which the iterator is pointing
+    DestructFuncT df; //destruct funstion pointer
+    
 };
 typedef struct SortedListIterator* SortedListIteratorPtr;
 

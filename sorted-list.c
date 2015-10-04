@@ -118,6 +118,7 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	if(iter != NULL) //checks if malloc succeeds
 	{
 		iter->current = list->front->next; //initializes current node of iterator to front
+        iter->df  = list->df;
 		if(iter->current != NULL)
 		{
 			list->front->next->refs++;
@@ -136,7 +137,7 @@ void SLDestroyIterator(SortedListIteratorPtr iter){
 		return;
 	}
 	else if(iter->current->alive==0 &&  iter->current->refs==1){
-        //data needs to be freed somehow
+        iter->df(iter->current->data);
 		free(iter->current);
 		free(iter);
 		return;

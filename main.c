@@ -2,8 +2,78 @@
  * sorted-list.c
  */
 
+int CompareInt( void * a, void * b)
+{
+    int* i = (int*) a;
+    int* j = (int*) b;
+    if(i<j){
+        return -1;
+    }
+    else if(i>j){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+int DestructInt( void * a)
+{
+    int* i =(int*) a;
+    free(i);
+}
+
+int compareDoubles(void *p1, void *p2) {
+    double d1 = *(double*)p1;
+    double d2 = *(double*)p2;
+    
+    return (d1 < d2) ? -1 : ((d1 > d2) ? 1 : 0);
+}
+
+int compareStrings(void *p1, void *p2) {
+    char *s1 = p1;
+    char *s2 = p2;
+    
+    return strcmp(s1, s2);
+}
+
+int main(){
+    int x
+    int*p;
+    iny*v;
+    p = malloc(sizeof(int));
+    SortedListPtr sl = SLCreate(compareInts, DestructInt);
+    SortedListIteratorPtr si;
+    
+    while(scanf("%d",&x)==1) {
+        v = malloc(sizeof(int));
+        *v = x;
+        SLInsert(sl,v);
+    }
+    
+    si = SLCreateIterator(sl);
+    while(1) {
+        p = SLNextItem(si);
+        if(p == 0) {
+            break;
+        }
+        printf("%d\n",*p);
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+/*
+ * sorted-list.c
+ 
+
 #include	<string.h>
-#include	"sorted-list.h"
+#include "sorted-list.h"
 
 SortedListIteratorPtr iterInd[100];
 
@@ -50,8 +120,6 @@ void shiftLeft(int index, int end)
     }
     
     free(iterInd[end]);
-    
-    return;
 }
 
 
@@ -69,11 +137,12 @@ main(int argc, char ** argv){
 	int counter =0;
 	do{
 		printf("Enter a command. Type h for list of commands\n");
-		command = (char) getchar();
+        command = scanf("%c", &command);//(char) getchar();
 		switch(command){
 			case('i'):printf("Enter an integer you wish to insert as a node.\n");
-					(*data) = getchar();
+                scanf("%c", data);//(*data) = getchar();
 					SLInsert(LL, data);
+                printf("The value: %d was inserted successfully", (*data));
 					break;
 
 			case('r'):printf("Enter an integer you wish to remove from the list.\n");
@@ -126,7 +195,8 @@ main(int argc, char ** argv){
 					"Entering c creates an iterator to traverse the linked list.\n"
 					"Entering d destroys an iterator.\n"
 					"Entering g gets the value of an iterator's node.\n"
-					"Entering n gets moves an iterator to the next node, then returns the value of that next node.\n");break;
+					"Entering n gets moves an iterator to the next node, then returns the value of that next node.\n");
+                    break;
 	
 			case('q'): printf("Program terminated."); break;
 
@@ -147,3 +217,5 @@ main(int argc, char ** argv){
 		counter++;
 	}
 }
+*/
+
