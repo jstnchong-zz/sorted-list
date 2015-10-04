@@ -22,7 +22,7 @@ int CompareInt( void * a, void * b)
     }
 }
 
-int DestructInt( void * a)
+void DestructInt( void * a)
 {
     int* i =(int*) a;
     free(i);
@@ -30,25 +30,37 @@ int DestructInt( void * a)
 
 
 int main(){
-    int x = 0;
-    int*p;
+    int * x = (int*) malloc(sizeof(int));
+    int* p;
     p = malloc(sizeof(int));
+    int count;
     SortedListPtr sl = SLCreate(CompareInt, DestructInt);
     SortedListIteratorPtr si;
-    printf("Enter value here: ");
-    while(scanf("%d\n",&x)==1) {
-        int* v = &x;
-        SLInsert(sl,v);
+    printf("Enter value here: \n");
+    count = scanf("%d",x);
+    //printf("%d\tThis was entered.\n", (*x));
+    while(count==1) {
+         SLInsert(sl,x);
+         printf("Enter value here: \n");
+         x++;//careful
+         x = (int*) malloc(sizeof(int));
+         count = scanf("%d",x);
+		//printf("%d\tThis was entered.\n", (*x));
     }
-    
+    //printf("It hits marker 1\n");
     si = SLCreateIterator(sl);
+	//printf("It hits marker 2\n");
+	p = SLGetItem(si);
+	printf("%d\n", *p);
     while(1) {
+		//printf("It hits marker 3\n");
         p = SLNextItem(si);
         if(p == 0) {
             break;
         }
         printf("%d\n",*p);
     }
+    //printf("It hits the end.\n");
     return 0;
 }
 
