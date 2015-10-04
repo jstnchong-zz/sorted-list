@@ -1,1 +1,113 @@
+JUSTIN CHONG & MICHAEL BAUER
+ASSIGNMENT 2 TESTPLAN.TXT
+SYSTEMS PROGRAMMING
+SECTION 6
+
+——————————————————————————
+TESTCASE 1
+——————————————————————————
+
+Input:
+
+
+Expected Output:
+
+
+
+——————————————————————————
+TESTCASE 2
+——————————————————————————
+
+Input: 
+
+
+Expected Output:
+
+
+
+——————————————————————————
+TESTCASE 3
+——————————————————————————
+
+Input:
+
+
+Expected Output:
+
+
+
+——————————————————————————
+TESTCASE 4
+——————————————————————————
+
+Input:
+
+
+Expected Output:
+
+
+
+——————————————————————————
+TESTCASE 5
+——————————————————————————
+
+Input:
+
+
+Expected Output:
+
+
+
+——————————————————————————
+TESTCASE 6
+——————————————————————————
+
+Input: 
+
+
+Expected Output:
+
+
+
+——————————————————————————
+TESTCASE 7
+——————————————————————————
+
+Input:
+
+
+Expected Output: 
+
+
+
+——————————————————————————
+TESTCASE 8
+——————————————————————————
+
+Input:
+
+
+Expected Output:
+
+
+
+——————————————————————————
+TESTCASE 9
+——————————————————————————
+
+Input:
+
+
+Expected Output:
+
+
+
+——————————————————————————
+TESTCASE 10
+——————————————————————————
+
+Input:
+
+
+Expected Output:
 
