@@ -2,6 +2,11 @@
  * sorted-list.c
  */
 
+#include 	<stdio.h>
+#include	<stdlib.h>
+#include	<string.h>
+#include	"sorted-list.h"
+
 int CompareInt( void * a, void * b)
 {
     int* i = (int*) a;
@@ -25,16 +30,16 @@ int DestructInt( void * a)
 
 
 int main(){
-    int x
+    int x;
     int*p;
-    iny*v;
+    int*v;
     p = malloc(sizeof(int));
-    SortedListPtr sl = SLCreate(compareInts, DestructInt);
+    SortedListPtr sl = SLCreate(CompareInt, DestructInt);
     SortedListIteratorPtr si;
-    
     while(scanf("%d",&x)==1) {
         v = malloc(sizeof(int));
         *v = x;
+        printf("BUGGGG");
         SLInsert(sl,v);
     }
     
