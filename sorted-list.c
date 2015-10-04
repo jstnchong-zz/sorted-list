@@ -118,7 +118,7 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	if(iter != NULL) //checks if malloc succeeds
 	{
 		iter->current = list->front->next; //initializes current node of iterator to front
-        iter->df  = list->df;
+        	iter->df  = list->df;
 		if(iter->current != NULL)
 		{
 			list->front->next->refs++;
