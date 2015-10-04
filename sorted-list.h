@@ -57,8 +57,8 @@ struct SortedList
 {
 	Node* front; //front node of the list
 	int numItems; //number of items in the list
-	CompareFunctT cf; //comparater function pointer
-	DestructFunctT df; //destruct funstion pointer
+	CompareFuncT cf; //comparater function pointer
+	DestructFuncT df; //destruct funstion pointer
 };
 typedef struct SortedList* SortedListPtr;
 

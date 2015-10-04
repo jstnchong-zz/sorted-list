@@ -7,7 +7,7 @@
 
 SortedListIteratorPtr iterInd[100];
 
-int CompareFuncT( void * a, void * b){
+int CompareInt( void * a, void * b){
 	int* i = (int*) a;
 	int* j = (int*) b;
 	if(i<j){
@@ -22,7 +22,7 @@ int CompareFuncT( void * a, void * b){
 
 
 }
-int DestructFuncT( void * a){
+int DestructInt( void * a){
 	int* i =(int*) a;
 	free(i);
 }
@@ -60,8 +60,8 @@ void shiftLeft(int index, int end)
 main(int argc, char ** argv){
 	int (*cf)(void *, void *);
 	int (*df)(void *);
-	cf = &CompareFuncT;
-	df = &DestructFuncT;
+	cf = &CompareInt;
+	df = &DestructInt;
 	char command;
 	SortedListPtr LL = SLCreate(cf, df);
 	int *data = malloc(sizeof(int));
