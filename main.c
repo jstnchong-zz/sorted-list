@@ -6,12 +6,14 @@
 #include	"sorted-list.h"
 #include	<stdin.h>
 
+SortedListIteratorPtr iterInd[100];
+
 void shiftLeft(int index, int end)
 {
     int prev;
     int ptr;
     
-    if(iterEnd[0] == NULL){
+    if(iterInd[0] == NULL){
         return;
     }
     
@@ -25,12 +27,12 @@ void shiftLeft(int index, int end)
         ptr++;
     }
     
-    free(iterInd[end])
+    free(iterInd[end]);
     
     return;
 }
 
-SortedListIteratorPtr iterInd[100];
+
 
 
 main(int argc, char ** argv){
