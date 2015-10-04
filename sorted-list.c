@@ -61,12 +61,6 @@ int SLInsert(SortedListPtr list, void *newObj){
         if((list->cf)(ptr->data, temp->data) == 0) //ITEM IS ALREADY IN LIST
         {
             (list->df)(temp->data);
-			//printf("They hold the same value.\n\n");
-		printf("%d Compared Object 1\n", (*((int*)(ptr->data))));
-		printf("%d Compared Object 2\n", (*((int*)(temp->data))));
-        if((list->cf)(ptr->data, temp->data) == 0) //ITEM IS ALREADY IN LIST
-        {
-            (list->df)(temp->data);
 			printf("They hold the same value.\n\n");
             free(temp); 
             return 0;

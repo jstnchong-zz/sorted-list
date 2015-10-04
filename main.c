@@ -39,8 +39,9 @@ int main(){
     SortedListIteratorPtr si;
     printf("Enter value here: \n");
     count = scanf("%d",x);
-    //printf("%d\tThis was entered.\n", (*x));
+    printf("%d\tThis was entered.\n", (*x));
     while(count==1) {
+        printf("here");
          SLInsert(sl,x);
          printf("Enter value here: \n");
          x++;//careful
@@ -48,7 +49,7 @@ int main(){
          count = scanf("%d",x);
 		//printf("%d\tThis was entered.\n", (*x));
     }
-    //printf("It hits marker 1\n");
+    printf("It hits marker 1\n");
     si = SLCreateIterator(sl);
 	//printf("It hits marker 2\n");
 	p = SLGetItem(si);
