@@ -24,13 +24,13 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 void SLDestroy(SortedListPtr list){
 	Node * temp;
 	while(list->front->next!=NULL){
-		if(list->front->next->alive ==1 && list->front->next->ptrs ==1){
+		if(list->front->next->alive ==1 && list->front->next->refs ==1){
 			temp = list->front->next;
 			list->front->next = list->front->next->next;
 			list->df(temp->data);
 			free(temp);
 		}
-		else if(list->front->next->alive == 1 && list->front->next->ptrs >1){
+		else if(list->front->next->alive == 1 && list->front->next->refs >1){
 			list->front->next->refs--;
 			list->front->next = list->front->next->next;
 		}
@@ -50,7 +50,7 @@ int SLInsert(SortedListPtr list, void *newObj){
     temp->alive = 0;
     Node* prev = list->front;	
     Node* ptr = prev->next; //POINTER TO ITERATE THROUGH THE LIST
-    while(ptr!=null){
+    while(ptr!=NULL){
         if((list->cf)(ptr->data, newObj) == 0) //ITEM IS ALREADY IN LIST
         {
             (list->df)(temp->data);
@@ -77,19 +77,19 @@ int SLInsert(SortedListPtr list, void *newObj){
 }
 //DONE
 int SLRemove(SortedListPtr list, void *newObj){
-    if(list==NULL || newObj==null) 
+    if(list==NULL || newObj==NULL)
     {
         return 0;
     }
     if(list->front->next != NULL){
     	Node* ptr = list->front->next;
     	Node* prev = list->front;
-    	while(ptr->next!=null){
+    	while(ptr->next!=NULL){
 		if((list->cf)(ptr->data, newObj)==0){
 			prev->next = prev->next->next;
 			ptr->refs--;
 			ptr->alive=0;
-			if(ptr->refs==0 && ptr->alive=0){
+			if(ptr->refs==0 && ptr->alive==0){
 				(list->df)(ptr->data);
 				free(ptr);
 				return 1;
@@ -136,7 +136,7 @@ void SLDestroyIterator(SortedListIteratorPtr iter){
 		return;
 	}
 	else if(iter->current->alive==0 &&  iter->current->refs==1){
-		list->df(iter->current->data);
+        //data needs to be freed somehow
 		free(iter->current);
 		free(iter);
 		return;
@@ -150,12 +150,12 @@ void SLDestroyIterator(SortedListIteratorPtr iter){
 
 //DONE
 void * SLNextItem(SortedListIteratorPtr iter){
-	if(iter==null){
+	if(iter==NULL){
 		return NULL;
 	}
 
-	else if(iter->current==null){
-		return null;
+	else if(iter->current==NULL){
+		return NULL;
 	}
 
 	else if(iter->current->alive==0 && iter->current->refs == 1){
@@ -164,11 +164,11 @@ void * SLNextItem(SortedListIteratorPtr iter){
 		free(temp);
 		return iter->current->data;
 	}
-	else if(iter->current->alive==0 && iter->current0->refs >1){
+	else if(iter->current->alive==0 && iter->current->refs >1){
 		iter->current->refs--;
 		iter->current->next;
 		if(iter->current == NULL){
-			return null;
+			return NULL;
 		}
 		else{
 			return iter->current->data;
@@ -178,7 +178,7 @@ void * SLNextItem(SortedListIteratorPtr iter){
 	else {
 		iter->current = iter->current->next;
 		if(iter->current == NULL){
-			return null;
+			return NULL;
 		}
 		else{
 			return iter->current->data;
@@ -188,10 +188,10 @@ void * SLNextItem(SortedListIteratorPtr iter){
 
 //DONE
 void * SLGetItem( SortedListIteratorPtr iter ){
-	if(iter==null){
+	if(iter==NULL){
 		return NULL;
 	}
-	else if(iter->current==null){
+	else if(iter->current==NULL){
 		return NULL;
 	}
 	else{
