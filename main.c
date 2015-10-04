@@ -39,22 +39,17 @@ int main(){
     SortedListIteratorPtr si;
     printf("Enter value here: \n");
     count = scanf("%d",x);
-<<<<<<< HEAD
-    //printf("%d\tThis was entered.\n", (*x));
     while(count==1) {
          SLInsert(sl,x);
          printf("Enter value here: \n");
-=======
+
     printf("%d\tThis was entered.\n", (*x));
     while(count==1) {
-    
->>>>>>> 70b46d04703ed31be9fe8f584cead366b675102d
          x++;//careful
          x = (int*) malloc(sizeof(int));
          count = scanf("%d",x);
 		//printf("%d\tThis was entered.\n", (*x));
     }
-<<<<<<< HEAD
     //printf("It hits marker 1\n");
     si = SLCreateIterator(sl);
 	//printf("It hits marker 2\n");
@@ -76,7 +71,6 @@ int main(){
 		}
 	}
     printf("It hits the end.\n");
-=======
     printf("It hits marker 1\n");
     si = SLCreateIterator(sl);
 	printf("It hits marker 2\n");
@@ -91,10 +85,10 @@ int main(){
         printf("%d\n",*p);
     }
     //printf("It hits the end.\n");
->>>>>>> 70b46d04703ed31be9fe8f584cead366b675102d
+
     return 0;
 }
-
+}
 
 
 
