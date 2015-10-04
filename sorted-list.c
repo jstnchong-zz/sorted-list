@@ -57,7 +57,7 @@ int SLInsert(SortedListPtr list, void *newObj){
             free(temp); 
             return 0;
         }
-        else if((list->cf)(ptr->data, newObj) < 0) //NODE SHOULD BE BEFORE PTR
+        else if((list->cf)(ptr->data, newObj) > 0) //NODE SHOULD BE BEFORE PTR
         {
             prev->next = temp;
 	    temp->next = ptr;
@@ -98,7 +98,7 @@ int SLRemove(SortedListPtr list, void *newObj){
 				return 1;
 			}
 		}
-		else if((list->cf)(ptr->data, newObj)>0){
+		else if((list->cf)(ptr->data, newObj)<0){
 			return 0;
     		}
 		else{

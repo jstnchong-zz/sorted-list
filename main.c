@@ -124,7 +124,7 @@ main(int argc, char ** argv){
 	int counter =0;
 	do{
 		printf("Enter a command. Type h for list of commands\n");
-        command = scanf("%c", &command);//(char) getchar();
+        command = scanf("%c\n", &command);//(char) getchar();
 		switch(command){
 			case('i'):printf("Enter an integer you wish to insert as a node.\n");
                 scanf("%c", data);//(*data) = getchar();
