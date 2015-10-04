@@ -124,12 +124,12 @@ main(int argc, char ** argv){
 					"Entering r removes a integer node from the linked list.\n"
 					"Entering c creates an iterator to traverse the linked list.\n"
 					"Entering d destroys an iterator.\n"
-					"Entering g gets the value of an iterator's node.\n");
+					"Entering g gets the value of an iterator's node.\n"
 					"Entering n gets moves an iterator to the next node, then returns the value of that next node.\n");break;
 	
 			case('q'): printf("Program terminated."); break;
 
-			default: "Input is invalid, please try again. Type h for list of commands"
+			default: printf("Input is invalid, please try again. Type h for list of commands");
 
 
 
@@ -142,7 +142,7 @@ main(int argc, char ** argv){
 	free(data);
 	SLDestroy(LL);
 	while(iterInd[counter]!=NULL){
-		SLDestroyIterator(iterInde[counter]);
+		SLDestroyIterator(iterInd[counter]);
 		counter++;
 	}
 }
