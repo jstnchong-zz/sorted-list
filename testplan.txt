@@ -3,15 +3,36 @@ ASSIGNMENT 2 TESTPLAN.TXT
 SYSTEMS PROGRAMMING
 SECTION 6
 
+Test Plan for sorted-list
+
+1) The user inputs an integer object to be added into the list. Once a non-integer is entered the list will be stop inserting objects.
+	
+
+2) To test SLRemove we remove the integers 6,7,8 if they are in the list.
+	
+
+3) Create new iterator and print list:
+
+
+4) Then we destroy the list and all iterators.
+
 ——————————————————————————
 TESTCASE 1
 ——————————————————————————
 
 Input:
+1
+2
+3
+4
+j(Non-Integer Tells the program to stop inserting)
 
 
 Expected Output:
-
+4
+3
+2
+1
 
 
 ——————————————————————————
@@ -19,10 +40,17 @@ TESTCASE 2
 ——————————————————————————
 
 Input: 
-
+4
+3
+2
+1
+g
 
 Expected Output:
-
+4
+3
+2
+1
 
 
 ——————————————————————————
@@ -30,9 +58,11 @@ TESTCASE 3
 ——————————————————————————
 
 Input:
-
+1
+k
 
 Expected Output:
+1
 
 
 
@@ -41,10 +71,11 @@ TESTCASE 4
 ——————————————————————————
 
 Input:
+k
 
 
 Expected Output:
-
+The list is empty
 
 
 ——————————————————————————
@@ -52,10 +83,22 @@ TESTCASE 5
 ——————————————————————————
 
 Input:
+5
+5
+4
+2
+3
+3
+1
+1
 
 
 Expected Output:
-
+5
+4
+3
+2
+1
 
 
 ——————————————————————————
@@ -63,10 +106,16 @@ TESTCASE 6
 ——————————————————————————
 
 Input: 
-
+8
+5
+4
+5
+1
 
 Expected Output:
-
+5
+4
+1
 
 
 ——————————————————————————
@@ -74,10 +123,17 @@ TESTCASE 7
 ——————————————————————————
 
 Input:
-
+55
+6
+2
+4
+3
 
 Expected Output: 
-
+55
+4
+3
+2
 
 
 ——————————————————————————
@@ -96,18 +152,27 @@ TESTCASE 9
 ——————————————————————————
 
 Input:
+8
+7
+6
+5
+6
+3
+2
 
 
 Expected Output:
-
-
+5
+3
+2
 
 ——————————————————————————
 TESTCASE 10
 ——————————————————————————
 
 Input:
+8
 
 
 Expected Output:
-
+The list is empty

@@ -24,12 +24,12 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df){
 
 //DONE
 void SLDestroy(SortedListPtr list){
-	Node * temp;
+    Node * temp;
 	while(list->front->next!=NULL){
 		if(list->front->next->alive ==1 && list->front->next->refs ==1){
 			temp = list->front->next;
 			list->front->next = list->front->next->next;
-			list->df(temp->data);
+			//list->df(temp->data);
 			free(temp);
 			list->ls--;
 		}
@@ -39,7 +39,7 @@ void SLDestroy(SortedListPtr list){
 			list->ls--;
 		}
 	}
-	free(list->front);
+    free(list->front);
 	free(list);
 }
 
@@ -97,37 +97,55 @@ int SLInsert(SortedListPtr list, void *newObj){
 }
 //DONE
 int SLRemove(SortedListPtr list, void *newObj){
+    Node* ptr = list->front->next;
+    Node* prev = list->front;
+    
     if(list==NULL || newObj==NULL)
     {
         return 0;
     }
+    
     if(list->front->next != NULL){
-    	Node* ptr = list->front->next;
-    	Node* prev = list->front;
+        if(ptr->next == NULL){
+            if((list->cf)(ptr->data, newObj)==0){
+                prev->next = NULL;
+                ptr->refs--;
+                ptr->alive=0;
+                if(ptr->refs==0 && ptr->alive==0){
+                    //(list->df)(ptr->data);
+                    free(ptr);
+                    list->ls--;
+                    return 1;
+                }
+            }
+        }
+
     	while(ptr->next!=NULL){
-		if((list->cf)(ptr->data, newObj)==0){
-			prev->next = prev->next->next;
-			ptr->refs--;
-			ptr->alive=0;
-			if(ptr->refs==0 && ptr->alive==0){
-				(list->df)(ptr->data);
-				free(ptr);
-				list->ls--;
-				return 1;
-			}
-			else{
-				list->ls--;
-				return 1;
-			}
-		}
-		else if((list->cf)(ptr->data, newObj)>0){
-			return 0;
-    		}
-		else{
-			prev=prev->next;
-			ptr = ptr->next;
+            if((list->cf)(ptr->data, newObj)==0){
+                prev->next = prev->next->next;
+                ptr->refs--;
+                ptr->alive=0;
+                if(ptr->refs==0 && ptr->alive==0){
+                    //(list->df)(ptr->data);
+                    free(ptr);
+                    list->ls--;
+                    return 1;
+                }
+                else{
+                    list->ls--;
+                    return 1;
+                }
+            }
+            else if((list->cf)(ptr->data, newObj)>0){
+                return 0;
+                }
+            else{
+                prev=prev->next;
+                ptr = ptr->next;
         	}
     	}
+        
+        
     }
     return 0; 
 }
@@ -140,7 +158,7 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list){
 	if(iter != NULL) //checks if malloc succeeds
 	{
 		iter->current = list->front->next; //initializes current node of iterator to front
-        	(iter->df)  = list->df;
+        (iter->df)  = list->df;
 		if(iter->current != NULL)
 		{
 			list->front->next->refs++;

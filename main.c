@@ -30,45 +30,70 @@ void DestructInt( void * a)
 }
 
 
-int main(){
-    int * x = (int*) malloc(sizeof(int));
-    int* p;
-    p = malloc(sizeof(int));
-    int count;
-    SortedListPtr sl = SLCreate(CompareInt, DestructInt);
-    SortedListIteratorPtr si;
-    printf("Enter value here: \n");
-    count = scanf("%d",x);
 
-    //printf("%d\tThis was entered.\n", (*x));
-    while(count==1) {
-         x++;//careful
-         x = (int*) malloc(sizeof(int));
-	printf("Enter value here: \n");
-         count = scanf("%d",x);
-		//printf("%d\tThis was entered.\n", (*x));
+
+int main(){
+    int *num = (int*) malloc(sizeof(int)); //interger object to be added to list
+    int* obj; //interger object that is returned after being sorted
+    obj = malloc(sizeof(int));
+    int count; //count is a flag that indicates whether a a integer is inputted by user
+    SortedListPtr list = SLCreate(CompareInt, DestructInt); //sorted list object
+    SortedListIteratorPtr iterator;
+    printf("Enter value here: \n");
+    count = scanf("%d",num);
+    if (count != 1) {
+        printf("\nThis is the sorted-list:\n");
+        printf("The list is empty\n");
+        SLDestroy(list);
+        return 0;
     }
-    //printf("It hits marker 1\n");
-    si = SLCreateIterator(sl);
-	//printf("It hits marker 2\n");
-	p = SLGetItem(si);
-	printf("It hits marker 3\n");
-	if(sl->ls == 0){
-		printf("list is empty");
+    SLInsert(list, num);
+
+    while(count==1) {
+        SLInsert(list, num);
+        num++;//careful
+        num = (int*) malloc(sizeof(int));
+        printf("Enter value here: \n");
+        count = scanf("%d",num);
+    }
+    
+    int* r1 = (int*)malloc(sizeof(int));
+    *r1 = 6;
+    SLRemove(list,(void*)r1);
+    int* r2 = (int*)malloc(sizeof(int));
+    *r2 = 7;
+    SLRemove(list,(void*)r2);
+    int* r3 = (int*)malloc(sizeof(int));
+    *r3 = 8;
+    SLRemove(list,(void*)r3);
+    
+    
+    iterator = SLCreateIterator(list);
+	obj = SLGetItem(iterator);
+	if(list->ls == 0){
+        printf("\nThis is the sorted-list:\n");
+		printf("The list is empty\n");
+        SLDestroy(list);
+        return 0;
 	}
 	else{
-		printf("%d\n", *p);
+        printf("\nThis is the sorted-list:\n");
+		printf("%d\n", *obj);
 		while(1) {
-		
-			p = SLNextItem(si);
-			//printf("This has a problem");
-			if(p == 0) {
+			obj = SLNextItem(iterator);
+			if(obj == 0) {
 				break;
 			}
-			printf("%d\n",*p);
+			printf("%d\n",*obj);
 		}
 	}
-    //printf("It hits the end.\n");
+
+    free(r1);
+    free(r2);
+    free(r3);
+    
+    SLDestroyIterator(iterator);
+    SLDestroy(list);
 
     return 0;
 }
